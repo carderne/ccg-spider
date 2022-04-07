@@ -20,13 +20,8 @@ export default (town, pars) => {
 
   const revenue = crop_production * pars.crop_price;
   const profit = revenue - transp_cost - irrig_cost;
-  //const tech = town.optimal_solution;
 
-  //const gov_costs = profit * 10;
-  //const gov_annual = gov_costs / 12;
-  //const total_social_benefit = cost * 0.5;
-
-  //const tech = profit > 0 ? "pump" : "none";
+  const tech = crop_production > 0.5 ? "agri" : "none";
 
   return {
     crop_production: Math.max(0, crop_production),
@@ -34,8 +29,6 @@ export default (town, pars) => {
     irrig_cost: Math.max(0, irrig_cost),
     revenue: Math.max(0, revenue),
     profit: Math.max(0, profit),
-    //tech: tech,
-    //gov_annual: Math.max(0, gov_annual),
-    //social: Math.max(0, total_social_benefit),
+    tech: tech,
   };
 };
