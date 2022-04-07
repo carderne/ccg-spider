@@ -1,6 +1,6 @@
 const center = [35.5, -13.2];
 const zoom = 9;
-const loc = {center, zoom};
+const loc = { center, zoom };
 
 const popup = [
   {
@@ -69,7 +69,7 @@ const infra = [
   {
     col: "DP_nowDist",
     label: "Diesel pump",
-    type: "line",       //needs to be converted to point
+    type: "line", //needs to be converted to point
     color: "#0000FF",
   },
 ];
@@ -95,16 +95,16 @@ const pars = [
     col: "Tech_cost",
     label: "Irrigation Technology",
     min: 1,
-    max:4,
+    max: 4,
     val: 2,
     unit: "tech",
   },
   {
     col: "pumpenergyint",
     label: "Pump energy intensity",
-    min:0.005,
-    max:0.05,
-    val:0.08,
+    min: 0.005,
+    max: 0.05,
+    val: 0.08,
     unit: "kWh/m3 per m lifted",
   },
 ];
@@ -142,7 +142,7 @@ const attrs = [
     minCol: "hsl(30, 29%, 93%)",
     maxCol: "hsl(30, 100%, 23%)",
   },
-    {
+  {
     col: "profit",
     label: "Profit ($)",
     min: 0,
@@ -153,7 +153,16 @@ const attrs = [
   {
     col: "tech",
     label: "Irrigation Technology",
-    cats: ['profit_ds_EV', 'profit_ds_IC','profit_gr_EV','profit_gr_IC','profit_no_irr_EV','profit_no_irr_IC','profit_so_EV','profit_so_IC'],
+    cats: [
+      "profit_ds_EV",
+      "profit_ds_IC",
+      "profit_gr_EV",
+      "profit_gr_IC",
+      "profit_no_irr_EV",
+      "profit_no_irr_IC",
+      "profit_so_EV",
+      "profit_so_IC",
+    ],
     colors: [
       "hsla(0, 60%, 60%, 1)",
       "hsla(50, 60%, 60%, 1)",
@@ -167,4 +176,4 @@ const attrs = [
   },
 ];
 
-export default {loc, popup, infra, pars, attrs};
+export default { loc, popup, infra, pars, attrs };
