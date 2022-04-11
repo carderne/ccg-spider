@@ -19,12 +19,11 @@ const popup = [
     fmt: true,
   },
   {
-    col: "price_elec_wind",
-    label: "Electricity price",
+    col: "price_elec",
+    label: "Electricity price (cheapest)",
     unit: "€/MWh",
-    fmt: true,
+    fmt: false,
   },
-
 
 ];
 
@@ -61,14 +60,6 @@ const pars = [
     unit: "€/kW",
   },
   {
-    col: "p_turbine",
-    label: "Power size turbine [kW]",
-    min: 1000,
-    max: 5000,
-    val: 3000,
-    unit: "kW",
-  },
-  {
     col: "interest_rate",
     label: "Interest rate",
     min: 0,
@@ -80,7 +71,22 @@ const pars = [
 ];
 
 const attrs = [
-
+  {
+    col: "price_h2",
+    label: "H2 production price [€/kg]",
+    min: 1,
+    max: 6,
+    minCol: "hsl(90, 100%, 23%)",
+    maxCol: "hsl(90, 29%, 93%)",
+  },
+  {
+    col: "price_elec",
+    label: "Cheapest electricity price",
+    min: 0,
+    max: 50,
+    minCol: "hsl(90, 29%, 93%)",
+    maxCol: "hsl(90, 100%, 23%)",
+  },
   {
     col: "price_elec_pv",
     label: "PV Electricity price",
