@@ -45,6 +45,7 @@ export default (town, pars) => {
   const price_ely = (((ely_capex/pvf(pars.interest_rate/100,ely_lt))/(ely_cap*8760))*(h2_en_den/ely_eff))*(1 + ely_opex)
   const price_elec_h2 = (price_elec/1000) * (h2_en_den/ely_eff)
   const price_h2 = price_elec_h2 + price_ely
+  const port_dist = town.mombasa_dist
 
 
 
@@ -56,6 +57,7 @@ export default (town, pars) => {
     price_h2: Math.max(0, price_h2),
     turbine_output: Math.max(0, turbine_output),
     pv_radiation: Math.max(0, pv_radiation),
-    wind_speed: Math.max(0, wind_speed)
+    wind_speed: Math.max(0, wind_speed),
+    port_dist: Math.max(0, port_dist)
   };
 };

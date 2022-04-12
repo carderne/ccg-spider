@@ -127,6 +127,14 @@ const attrs = [
     minCol: "hsl(255, 29%, 93%)",
     maxCol: "hsl(255, 100%, 23%)",
   },
+  {
+    col: "port_dist",
+    label: "Distance to port in Mombasa",
+    min: 1,
+    max: 100000,
+    minCol: "hsl(255, 29%, 93%)",
+    maxCol: "hsl(255, 100%, 23%)",
+  },
 ];
 
 export default { loc, hexSize, popup, infra, pars, attrs };
