@@ -77,7 +77,8 @@ export const toObjSingle = (arr, key) =>
 export const toObjArr = (arr) =>
   arr.reduce((acc, el) => ((acc[el.col] = []), acc), {});
 
-export const fmt = (val) => val && Math.round(val).toLocaleString("en");
+export const fmt = (val, places = 0) =>
+  val && parseFloat(parseFloat(val).toFixed(places)).toLocaleString("en");
 
 export const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 

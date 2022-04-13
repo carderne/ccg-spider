@@ -15,13 +15,13 @@ const popup = [
     col: "grid_dist",
     label: "Grid dist",
     unit: "km",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "road_dist",
     label: "Road dist",
     unit: "km",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "tech",
@@ -33,25 +33,25 @@ const popup = [
     col: "fish_output",
     label: "Fish output",
     unit: "tons/year",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "profit",
     label: "Profit",
     unit: "USD/year",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "gov_costs",
     label: "Gov costs",
     unit: "USD/year",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "social",
     label: "Social",
     unit: "USD/year",
-    fmt: true,
+    fmt: 0,
   },
 ];
 

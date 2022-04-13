@@ -9,43 +9,44 @@ const popup = [
     col: "WTDmean",
     label: "Groundwater depth",
     unit: "m",
-    fmt: true,
+    fmt: 0, // this should be the number of decimal places
+            // or false for categorical labels
   },
   {
     col: "GridDist",
     label: "Grid dist",
     unit: "km",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "MarketDist",
     label: "Market dist",
     unit: "km",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "cropyield",
     label: "Crop yield",
     unit: "tons",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "DP_nowDist",
     label: "Distance to diesel pump",
     unit: "km",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "crop_production",
     label: "Crop Production",
     unit: "tonne/year",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "profit",
     label: "Profit",
     unit: "($/year)",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "optimal_solution",

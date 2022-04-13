@@ -48,6 +48,20 @@ export const makeDraw = (map, app, config, model) => {
   return draw;
 };
 
+const createPopup = (e, popup, drawing) => {
+  if (!drawing) {
+    const props = e.features[0].properties;
+    const rows = popup.map((p) => {
+      const val = parseInt(p.fmt) >= 0 ? fmt(props[p.col], p.fmt) : props[p.col];
+      const unit = p.unit ? ` ${p.unit}` : "";
+      return `<div>${p.label}: ${val} ${unit}</div>`;
+    });
+    const description =
+      `<div><strong>ID: ${props.index}</strong></div>` + rows.join("");
+    return new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(description);
+  }
+};
+
 export const onMapLoaded = (map, infra, popup, app, model) => {
   infra.forEach((i) => {
     const id = `drawn_${i.col}`;
@@ -122,20 +136,7 @@ export const onMapLoaded = (map, infra, popup, app, model) => {
   map.on("mouseenter", "hex", pointer);
   map.on("mouseleave", "hex", nopointer);
 
-  const addPopup = (e) => {
-    if (!app.drawing) {
-      const props = e.features[0].properties;
-      const rows = popup.map((p) => {
-        const val = p.fmt ? fmt(props[p.col]) : props[p.col];
-        const unit = p.unit ? ` ${p.unit}` : "";
-        return `<div>${p.label}: ${val} ${unit}</div>`;
-      });
-      const description =
-        `<div><strong>ID: ${props.index}</strong></div>` + rows.join("");
-      new mapboxgl.Popup().setLngLat(e.lngLat).setHTML(description).addTo(map);
-    }
-  };
-  map.on("click", "hex", (e) => addPopup(e));
+  map.on("click", "hex", (e) => createPopup(e, popup, app.drawing).addTo(map));
 };
 
 export const setupDrawing = () => {

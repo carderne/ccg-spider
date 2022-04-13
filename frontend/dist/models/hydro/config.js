@@ -1,30 +1,29 @@
 const center = [37.7, 0.31];
 const zoom = 6;
-const loc = {center, zoom};
+const loc = { center, zoom };
 
 const hexSize = 9; // km
 
 const popup = [
-
   {
     col: "pv",
     label: "PV",
     unit: "kWh/kWp per day",
-    fmt: true,
+    fmt: 0, // this should be the number of decimal places
+            // or false for categorical labels
   },
   {
     col: "wind",
     label: "Mean wind speed (150m)",
     unit: "m/s",
-    fmt: true,
+    fmt: 0,
   },
   {
     col: "price_elec",
     label: "Electricity price (cheapest)",
     unit: "€/MWh",
-    fmt: false,
+    fmt: 2,
   },
-
 ];
 
 const infra = [
@@ -79,7 +78,6 @@ const pars = [
     cats: ["500 bar", "Liquid"],
     val: "500 bar",
   },
-
 ];
 
 const attrs = [
