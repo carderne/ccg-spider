@@ -40,6 +40,12 @@ const infra = [
     type: "line",
     color: "#0000FF",
   },
+  {
+    col: "DP_nowDist",
+    label: "Diesel pump",
+    type: "point",
+    color: "#0000FF",
+  },
 ];
 
 const pars = [
@@ -66,6 +72,12 @@ const pars = [
     max: 100,
     val: 4,
     unit: "%",
+  },
+  {
+    col: "h2_state",
+    label: "Hydrogen state",
+    cats: ["500 bar", "Liquid"],
+    val: "500 bar",
   },
 
 ];
