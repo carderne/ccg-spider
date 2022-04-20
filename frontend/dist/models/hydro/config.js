@@ -6,17 +6,24 @@ const hexSize = 9; // km
 
 const popup = [
   {
+    col: "price_h2",
+    label: "Hydrogen costs",
+    unit: "€/kg",
+    fmt: 2, // this should be the number of decimal places
+            // or false for categorical labels
+  },
+  {
     col: "pv",
     label: "PV",
     unit: "kWh/kWp per day",
-    fmt: 0, // this should be the number of decimal places
+    fmt: 2, // this should be the number of decimal places
             // or false for categorical labels
   },
   {
     col: "wind",
     label: "Mean wind speed (150m)",
     unit: "m/s",
-    fmt: 0,
+    fmt: 2,
   },
   {
     col: "price_elec",
@@ -39,12 +46,7 @@ const infra = [
     type: "line",
     color: "#0000FF",
   },
-  {
-    col: "DP_nowDist",
-    label: "Diesel pump",
-    type: "point",
-    color: "#0000FF",
-  },
+
 ];
 
 const pars = [
@@ -77,6 +79,22 @@ const pars = [
     label: "Hydrogen state",
     cats: ["500 bar", "Liquid"],
     val: "500 bar",
+  },
+  {
+    col: "water_tran_cost",
+    label: "Water Transportation Costs",
+    min: 0,
+    max: 1,
+    val: 0.1,
+    unit: "€/100km/m3",
+  },
+  {
+    col: "elec_water_treatment",
+    label: "Energy demand water treatment",
+    min: 0,
+    max: 1,
+    val: 0.2,                 //random assumption so far [kWh/m3] see: https://www.researchgate.net/publication/289707090_Energy_consumption_and_economic_cost_of_typical_wastewater_treatment_systems_in_Shenzhen_China
+    unit: "€/100km/m3",
   },
 ];
 
@@ -118,8 +136,8 @@ const attrs = [
     label: "Solar radiation",
     min: 2,
     max: 6,
-    minCol: "hsl(255, 29%, 93%)",
-    maxCol: "hsl(255, 100%, 23%)",
+    minCol: "hsl(55, 29%, 93%)",
+    maxCol: "hsl(55, 100%, 57%)",
   },
   {
     col: "wind_speed",
