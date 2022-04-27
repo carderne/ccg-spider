@@ -72,31 +72,35 @@ export default (town, pars) => {
       return cheapest_option(water_costs_h2_water_bodies,water_costs_h2_ocean)
     }
   }
+
+  //h2_price_ocean = ((water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*price_elec)*ely_water/1000)
   
-  const water_costs_h2 = (water_spec_cost + (pars.water_tran_cost/100)*town.water_dist + pars.elec_water_treatment*price_elec)*ely_water/1000
-  //const water_costs_h2_ocean = (water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*price_elec)*ely_water/1000
+  //Take grid distance in account 
+
   
   //LCOH price calculation
   const price_elec_h2 = (price_elec/1000) * (h2_en_den/ely_eff)
   const price_h2 = price_elec_h2 + price_ely + handling_costs(pars.h2_state) + water_costs(pars.water_resource)
-  //const price_h2_ocean = price_elec_h2 + price_ely + handling_costs(pars.h2_state) + water_costs_h2_ocean
+  const price_h2_ocean = price_elec_h2 + price_ely + handling_costs(pars.h2_state) + ((water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*price_elec)*ely_water/1000)
 
-  //Distance to port in mombasa
+  //Distance to port in mombasa --> demand center due to export
   const port_dist = town.mombasa_dist
+  
+  const h2_cost_to_demand = price_h2 + (pars.h2_trans_cost * port_dist/100)
 
   
-
-
   return {
     price_elec_pv: Math.max(0, price_elec_pv),
     price_elec_wind: Math.max(0, price_elec_wind),
     price_elec: Math.max(0,price_elec),
     price_h2: Math.max(0, price_h2),
+    price_h2_ocean: Math.max(0,price_h2_ocean),
     turbine_output: Math.max(0, turbine_output),
     pv_radiation: Math.max(0, pv_radiation),
     wind_speed: Math.max(0, wind_speed),
-    port_dist: Math.max(0, port_dist),
+    h2_cost_to_demand: Math.max(0, h2_cost_to_demand),
     water_dist: Math.max(0, town.water_dist),
-    ocean_dist: Math.max(0, town.ocean_dist)
+    ocean_dist: Math.max(0, town.ocean_dist),
+    grid_dist: Math.max(0,town.grid_dist)
   };
 };
