@@ -135,7 +135,7 @@ const pars = [
 const attrs = [
   {
     col: "price_h2",
-    label: "H2 production price [€/kg]",
+    label: "H2 production costs [€/kg]",
     min: 1.0,
     max: 6.0,
     minCol: "hsl(90, 100%, 23%)",
@@ -151,7 +151,7 @@ const attrs = [
   },
   {
     col: "price_elec",
-    label: "Cheapest electricity price",
+    label: "Cheapest electricity costs",
     min: 0,
     max: 50,
     minCol: "hsl(90, 29%, 93%)",
@@ -159,7 +159,7 @@ const attrs = [
   },
   {
     col: "price_elec_pv",
-    label: "PV Electricity price",
+    label: "PV Electricity costs",
     min: 20,
     max: 25,
     minCol: "hsl(90, 29%, 93%)",
@@ -167,7 +167,7 @@ const attrs = [
   },
   {
     col: "price_elec_wind",
-    label: "Wind Electricity price",
+    label: "Wind Electricity costs",
     min: 0,
     max: 50,
     minCol: "hsl(90, 29%, 93%)",
