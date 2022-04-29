@@ -1,5 +1,5 @@
-const center = [35.5, -13.2];
-const zoom = 9;
+const center = [37.7, 0.31];
+const zoom = 6;
 const loc = { center, zoom };
 
 const hexSize = 0.5; // km
