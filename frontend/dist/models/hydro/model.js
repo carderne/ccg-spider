@@ -33,9 +33,17 @@ export default (town, pars) => {
   //Function decide on chepeast energy
   function cheapest_option (option1, option2){
     if (option1>option2) {
-      return option2;
+      return option2
     }else{
       return option1
+    }
+  }
+
+  function elec_tech(option1, option2){
+    if (option1>option2) {
+      return 'wind'
+    }else{
+      return 'pv'
     }
   }
  
@@ -56,6 +64,7 @@ export default (town, pars) => {
   const cost_elec_wind = (((pars.wind_capex/pvf(pars.interest_rate/100,wind_lifetime) +  wind_opex)) / turbine_output)*1000
   const cost_elec = cheapest_option(cost_elec_pv,cost_elec_wind)
   const cost_ely = (((ely_capex/pvf(pars.interest_rate/100,ely_lt))/(ely_cap*8760))*(h2_en_den/ely_eff))*(1 + ely_opex)
+  const elec_technology = elec_tech(cost_elec_pv,cost_elec_wind)
 
   //Water costs
   function water_costs(resource){
@@ -66,10 +75,14 @@ export default (town, pars) => {
       return ((water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*cost_elec)*ely_water/1000)
 
     }
-    else {
+    else if (resource.includes("Cheapest option")) {
       water_costs_h2_water_bodies = (water_spec_cost + (pars.water_tran_cost/100)*town.water_dist + pars.elec_water_treatment*cost_elec)*ely_water/1000
       water_costs_h2_ocean = (water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*cost_elec)*ely_water/1000
-      return cheapest_option(water_costs_h2_water_bodies,water_costs_h2_ocean)
+        if (water_costs_h2_ocean>water_costs_h2_water_bodies) {
+          return water_costs_h2_water_bodies
+        }else{
+          return water_costs_h2_ocean
+        }
     }
   }
 
@@ -80,8 +93,8 @@ export default (town, pars) => {
   
   //LCOH cost calculation
   const cost_elec_h2 = (cost_elec/1000) * (h2_en_den/ely_eff)
-  const cost_h2 = cost_elec_h2 + cost_ely + handling_costs(pars.h2_state) + water_costs(pars.water_resource)
   const cost_h2_ocean = cost_elec_h2 + cost_ely + handling_costs(pars.h2_state) + ((water_spec_cost + (pars.water_tran_cost/100)*town.ocean_dist + pars.elec_ocean_water_treatment*cost_elec)*ely_water/1000)
+  const cost_h2 = cost_elec_h2 + cost_ely + handling_costs(pars.h2_state) + water_costs(pars.water_resource)
 
   //Distance to port in mombasa --> demand center due to export
   const port_dist = town.mombasa_dist
@@ -90,12 +103,14 @@ export default (town, pars) => {
   const h2_cost_to_demand = cost_h2 + (pars.h2_trans_cost * port_dist/100)
 
   //Including restricted surface area: Currently forest, agriculture and water bodies
-  const tech = town.rest_area < 252 ? "something" : "none";
+  const tech = (town.avail_area - town.rest_area) > pars.min_area ? "something" : "none";
+  const available_area = (town.avail_area - town.rest_area)
+
 
   //Adding PV GWh possible
   function pv_kwp(size){
-    if (town.rest_area < 252){
-      return ((252-town.rest_area)*1000000)/size
+    if (available_area > pars.min_area){
+      return ((available_area)*1000000)/size
     } else {
       return 0
     }
@@ -105,8 +120,8 @@ export default (town, pars) => {
 
   //Adding Wind GWh possible
     function wind_pc(distance){
-      if (town.rest_area < 252){
-        return ((252-town.rest_area)*1000000)/((Math.PI*((distance * d_rot)**2))/4)
+      if (available_area > pars.min_area){
+        return ((available_area)*1000000)/((Math.PI*((distance * d_rot)**2))/4)
       } else {
         return 0
       }
@@ -134,6 +149,7 @@ export default (town, pars) => {
     tech: tech,
     rest_area: Math.max(0,town.rest_area),
     pv_kWh: Math.max(0,pv_kWh),
-    wind_kWh: Math.max(0,wind_kWh)
+    wind_kWh: Math.max(0,wind_kWh),
+    elec_technology: elec_technology
   };
 };

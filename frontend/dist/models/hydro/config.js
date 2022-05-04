@@ -146,6 +146,14 @@ const pars = [
     val: 6,                 
     unit: "* Rotor Diameter",  //https://energyfollower.com/wind-turbine-spacing/
   },
+  {
+    col: "min_area",
+    label: "Min. available area to construct",
+    min: 1,
+    max: 100,
+    val: 10,                 
+    unit: "km2",  
+  },
 ];
 
 const attrs = [
@@ -182,14 +190,6 @@ const attrs = [
     maxCol: "hsl(59, 98%, 86%)",
   },
   {
-    col: "cost_elec_wind",
-    label: "Wind LCOE [€/MWh]",
-    min: 0,
-    max: 50,
-    minCol: "hsl(255, 100%, 23%)",
-    maxCol: "hsl(255, 29%, 93%)",
-  },
-  {
     col: "pv_radiation",
     label: "Solar radiation [kWh/kWp/a]",
     min: 2,
@@ -206,6 +206,14 @@ const attrs = [
     maxCol: "hsl(55, 100%, 57%)",
   },
   {
+    col: "cost_elec_wind",
+    label: "Wind LCOE [€/MWh]",
+    min: 0,
+    max: 50,
+    minCol: "hsl(255, 100%, 23%)",
+    maxCol: "hsl(255, 29%, 93%)",
+  },
+  {
     col: "wind_speed",
     label: "Mean wind speed [m/s]",
     min: 1,
@@ -220,6 +228,16 @@ const attrs = [
     max: 20,
     minCol: "hsl(255, 29%, 93%)",
     maxCol: "hsl(255, 100%, 23%)",
+  },
+  {
+    col: "elec_technology",
+    label: "Chepeast Technology",
+    cats: ["pv", "wind"],
+    colors: [
+      "hsl(55, 100%, 57%)",
+      "hsl(255, 100%, 23%)",
+      "hsla(200, 60%, 60%, 0.2)",
+    ],
   },
   //{
   //  col: "turbine_output",
@@ -262,14 +280,14 @@ const attrs = [
   //  minCol: "hsl(255, 29%, 93%)",
   //  maxCol: "hsl(255, 100%, 23%)",
   //},
-  {
-    col: "rest_area",
-    label: "Restricted area [km2]",
-    min: 1,
-    max: 10000,
-    minCol: "hsl(255, 29%, 93%)",
-    maxCol: "hsl(255, 100%, 23%)",
-  },
+  //{
+  //  col: "rest_area",
+  //  label: "Restricted area [km2]",
+  //  min: 1,
+  //  max: 10000,
+  //  minCol: "hsl(255, 29%, 93%)",
+  //  maxCol: "hsl(255, 100%, 23%)",
+  //},
 ];
 
 export default { loc, hexSize, popup, infra, pars, attrs };
