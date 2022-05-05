@@ -41,7 +41,6 @@ def feat(
         echo("Creating a new hex geometry from scratch")
         geom = gpd.read_file(cfg["aoi"])
         geom = create_hex(geom, cfg["hex_res"])
-        geom = geom.reset_index(drop=True)
         geom = add_neighbors(geom)
 
     if "features" in cfg and isinstance(cfg["features"], list):
@@ -53,7 +52,6 @@ def feat(
     geom["index"] = geom.index
     geom = geom.dropna(axis=0, subset=["geometry"])
 
-    geom.geometry = geom.simplify(tolerance=0.001, preserve_topology=False,)
     echo(f"Saving to {file}")
     geom.to_file(file, driver="GeoJSON")
 

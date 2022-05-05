@@ -58,7 +58,10 @@ def add_features(geom: gpd.GeoDataFrame, features: list, raster_like: Path):
 
 
 def create_hex(aoi: gpd.GeoDataFrame, resolution=5):
-    return aoi.h3.polyfill_resample(resolution).get(["geometry"])
+    geom = aoi.h3.polyfill_resample(resolution).get(["geometry"])
+    geom = geom.assign(h3_index=geom.index)
+    geom = geom.reset_index(drop=True)
+    return geom
 
 
 def add_raster_layer(
