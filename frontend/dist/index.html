@@ -48,14 +48,14 @@
                 <h1 class="text-4xl block mx-auto text-center font-bold">Spider</h1>
 
                 <!--Colour by dropdown-->
-                <div class="my-4 mx-auto w-max flex flex-col border-2 border-slate-400 rounded-xl">
+                <div class="my-4 mx-auto flex flex-col border-2 border-slate-400 rounded-xl">
                     <div class="flex flex-row">
                         <!--Label-->
                         <div class="flex flex-col content-center justify-center align-right py-2 pl-2">
                             <span>Colour by</span>
                         </div>
                         <!--Dropdown-->
-                        <select v-model="colorBy" class="pl-1 mr-2 py-2 bg-transparent">
+                        <select v-model="colorBy" class="pl-1 mr-2 py-2 bg-transparent w-3/5 truncate">
                             <option v-for="[key, obj] in Object.entries(attrs)" :value="obj.col">
                             {{ obj.label }}
                             </option>
