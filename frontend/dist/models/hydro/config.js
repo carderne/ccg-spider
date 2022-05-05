@@ -41,12 +41,12 @@ const popup = [
 ];
 
 const infra = [
-  //{
-  //  col: "grid_dist",
-  //  label: "Grid",
-  //  type: "line",
-  //  color: "#FF0000",
-  //},
+  {
+    col: "grid_dist",
+    label: "Grid",
+    type: "line",
+    color: "#FF0000",
+  },
   //{
   //  col: "road_dist",
   //  label: "Road",
@@ -55,7 +55,7 @@ const infra = [
   //},
   {
     col: "mombasa_dist",
-    label: "Demand",
+    label: "Demand site",
     type: "point",
     color: "#0000FF",
   },
@@ -238,6 +238,14 @@ const attrs = [
       "hsl(255, 100%, 23%)",
       "hsla(200, 60%, 60%, 0.2)",
     ],
+  },
+  {
+    col: "grid_dist",
+    label: "Grid dist [km]",
+    min: 0,
+    max: 1000,
+    minCol: "hsl(30, 100%, 23%)",
+    maxCol: "hsl(30, 29%, 93%)",
   },
   //{
   //  col: "turbine_output",
