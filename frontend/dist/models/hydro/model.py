@@ -1,7 +1,3 @@
-import js  # type: ignore[import]
-from pyodide import create_proxy, to_js  # type: ignore[import]
-
-
 def model(town, pars):
     pv_lifetime = 20
     pv_opex = 9.3  # €/kWp*a
@@ -211,21 +207,3 @@ def model(town, pars):
         wind_kWh=wind_kWh,
         elec_technology=elec_technology,
     )
-
-
-def all_to_float(d):
-    for k, v in d.items():
-        try:
-            d[k] = float(v)
-        except Exception:
-            pass
-    return d
-
-
-def wrapper(town, pars):
-    town = all_to_float(town.to_py())
-    pars = all_to_float(pars.to_py())
-    return js.Object.fromEntries(to_js(model(town, pars)))
-
-
-js.window.pymodel_hydro = create_proxy(wrapper)

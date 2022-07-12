@@ -1,4 +1,4 @@
-/* global turf */
+/* global turf loadPyodide */
 
 export const getPath = (models) => {
   let path = window.location.pathname.split("/")[1];
@@ -251,4 +251,31 @@ export const deleteDrawing = (
   app.hex = resetProp(app.hex, col);
   app.hex = updateHex(app.parVals, app.hex, model);
   reloadHex(map, app.hex, mapLoaded);
+};
+
+export const getModel = async (models, path) => {
+  if (path != "hydro") {
+    return models[path].model;
+  } else {
+    const pyodide = await loadPyodide();
+    const pyModelText = await (await fetch(`./models/${path}/model.py`)).text();
+    pyodide.runPython(pyModelText);
+    const model = pyodide.globals.get("model");
+    return (town, pars) =>
+      Object.fromEntries(
+        model(
+          pyodide.toPy(convToNumbers(town)),
+          pyodide.toPy(convToNumbers(pars))
+        ).toJs()
+      );
+  }
+};
+
+const convToNumbers = (obj) => {
+  const res = {};
+  for (const k in obj) {
+    const num = Number(obj[k]);
+    res[k] = isNaN(num) ? obj[k] : num;
+  }
+  return res;
 };

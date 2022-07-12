@@ -2,6 +2,7 @@
 
 import * as models from "./models/index.js";
 import {
+  getModel,
   getPath,
   getHex,
   updateHex,
@@ -82,7 +83,9 @@ const init = (path, config) => {
     },
     created: async function () {
       this.debouncedUpdate = _.debounce(this.update, 500);
-      this.model = await getModel(path);
+
+      this.model = await getModel(models, path);
+
       this.hex = await getHex(path, this.infra, this.parVals, this.model);
       this.map = makeMap(config, this, this.model);
       this.draw = makeDraw(this.map, this, config, this.model);
@@ -123,17 +126,6 @@ const init = (path, config) => {
       },
     },
   }).mount("#sidebar");
-};
-
-const getModel = async (path) => {
-  if (path != "hydro") {
-    return models[path].model;
-  } else {
-    const modelName = `pymodel_${path}`;
-    while (!Object.prototype.hasOwnProperty.call(window, modelName))
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    return window[modelName];
-  }
 };
 
 const path = getPath(models);
