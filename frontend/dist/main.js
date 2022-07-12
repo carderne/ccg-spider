@@ -21,7 +21,7 @@ import {
 
 import { makeMap, makeDraw } from "./map.js";
 
-const init = (path, config, model) => {
+const init = (path, config) => {
   Vue.createApp({
     data() {
       return {
@@ -82,9 +82,10 @@ const init = (path, config, model) => {
     },
     created: async function () {
       this.debouncedUpdate = _.debounce(this.update, 500);
-      this.hex = await getHex(path, this.infra, this.parVals, model);
-      this.map = makeMap(config, this, model);
-      this.draw = makeDraw(this.map, this, config, model);
+      this.model = await getModel(path);
+      this.hex = await getHex(path, this.infra, this.parVals, this.model);
+      this.map = makeMap(config, this, this.model);
+      this.draw = makeDraw(this.map, this, config, this.model);
     },
     methods: {
       zip: function (a, b) {
@@ -106,12 +107,12 @@ const init = (path, config, model) => {
           this.draw,
           this.drawnLines,
           this.mapLoaded,
-          model
+          this.model
         );
         this.drawing = null;
       },
       update: function () {
-        this.hex = updateHex(this.parVals, this.hex, model);
+        this.hex = updateHex(this.parVals, this.hex, this.model);
         reloadHex(this.map, this.hex, this.mapLoaded);
       },
       downloadHex: function () {
@@ -124,16 +125,17 @@ const init = (path, config, model) => {
   }).mount("#sidebar");
 };
 
-(async () => {
-  const path = getPath(models);
-  const config = models[path].config;
+const getModel = async (path) => {
   if (path != "hydro") {
-    init(path, config, models[path].model);
+    return models[path].model;
   } else {
     const modelName = `pymodel_${path}`;
     while (!Object.prototype.hasOwnProperty.call(window, modelName))
       await new Promise((resolve) => setTimeout(resolve, 1000));
-    const model = window[modelName];
-    init(path, config, model);
+    return window[modelName];
   }
-})();
+};
+
+const path = getPath(models);
+const config = models[path].config;
+init(path, config);
