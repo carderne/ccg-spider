@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="vendor/mapbox-gl-draw.css">
         <link rel="stylesheet" href="tw.css">
         <link rel="icon" href="favicon.ico">
+        <!--<link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />-->
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
     </head>
     <body class="h-screen w-screen flex sm:h-full sm:flex-col">
 
@@ -176,6 +178,7 @@
         <div id="map" class="flex flex-grow sm:h-1/2 sm:flex-grow-0"></div>
 
         <!--Load main script-->
+        <py-script src="./models/hydro/model.py"></py-script>
         <script type="module" src="./main.js"></script>
     </body>
 </html>

@@ -81,7 +81,7 @@ const pars = [
   {
     col: "interest_rate",
     label: "Interest rate",
-    min: 0,
+    min: 1,
     max: 100,
     val: 4,
     unit: "%",
