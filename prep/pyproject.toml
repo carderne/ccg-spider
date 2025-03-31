@@ -38,8 +38,7 @@ dependencies = [
     "geopandas >= 0.14",
     "typer >= 0.8",
     "PyYAML ~= 6.0",
-    "h3pandas >= 0.2.3",
-    "h3 < 4",
+    "h3pandas >= 0.3.0",
 ]
 
 [project.optional-dependencies]
